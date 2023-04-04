@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
-    <script defer src="./scripts/main.js"></script>
+    <script defer src="./main.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>Blackjack</header>
 <!-- playign buttons -->
-    <section id="buttons2">
-        <button>Hit</button>
-        <button>Stay</button>
+    <section id="sectionButtons">
+        <button class="buttons">Hit</button>
+        <button class="buttons">Stay</button>
     </section>
 <!-- Board -->
     <section class = board>
@@ -22,31 +22,35 @@
             <div>dealerscards</div>
             <div>dealersards</div>
             <div>dealerscards</div>
-            <div>dealerscards</div>
+            
         </section>
         <h3>Dealt money!</h3>
+        100$
         <section id="playersCards">
             <div>dealerscards</div>
             <div>dealerscards</div>
             <div>dealersards</div>
             <div>dealerscards</div>
-            <div>dealerscards</div>
+            
         </section>
     </section>
-    <section id="cardCount">
-        <div></div>
-        <div></div>
-        <div></div>
-    </section>
+    
  <!-- Identify players -->
     <section id="players">
-        <h4>Dealer</h4>
-        <h4>Player</h4>
+        <div>
+            <h4>Dealer</h4>
+            counterDealer
+        </div>
+        <div>
+            <h4>Player</h4>
+            counterPlayer
+        </div>
+       
     </section>
 <!-- play now button -->
-    <section id="playNowButton">
-        <button>Play now</button>
-    </section>
+    <footer id="playNowButton">
+        <button class="buttons">Play now</button>
+    </footer>
     
 </body>
 </html>
