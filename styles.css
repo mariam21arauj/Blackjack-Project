@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    background-color: rgb(0, 47, 10);
+}
+
+body {
+    margin: 0;
+    font-family: fantasy;
+    height: 100vh;
+    margin: auto;
+    display: grid;
+    grid-template-rows: repeat(5, 20fr) ;
+    grid-template-columns: repeat(3, 33fr);
+}
+header { 
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color:aquamarine;
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+    grid-column: span 5;
+}
+.board {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 1;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+#buttons2 {
+    
+ display: grid;
+}
+
+
+
+
