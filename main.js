@@ -1,5 +1,5 @@
   /*----- constants -----*/
- const cards = [
+  const cards = [
     {numValue: 11, img: "../images/spades/spades-A.svg"},
     {numValue:10, img:"../images/spades/spades-K.svg" },
     {numValue:10, img:"../images/spades/spades-Q.svg" },
@@ -60,14 +60,31 @@
   let playerScore;
   let dealerScore; 
   let dealtMoney;
+  let winner;
+  let board;
  
 
 
 
   /*----- cached elements  -----*/
-
+ const playNowBtn = document.getElementById('playNowButton');
+ const hitBtn = document.getElementById('hitButton')
+ const stayBtn = document.getElementById('stayButton')
 
   /*----- event listeners -----*/
-
+  playNowBtn.addEventListener('click', initialize);
+  hitBtn.addEventListener('click', shuffleDeck);
+  stayBtn.addEventListener('click', dealersTurn);
 
   /*----- functions -----*/
+initialize(); 
+
+function initialize(){
+    // restarts board
+    winner = null;
+    board = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+    ];
+    render();
+}
