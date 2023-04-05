@@ -40,4 +40,11 @@
 5) After it has been decided who's won, a new pop-up shows up for the player: "Do you wish to play again, or cash out and end the game?" and the player can choose to click on "Play Again" and continue where he left off, or click "Cash Out" and then end the game.  
 
 (im still deciding wheter this is the end game logic, or wheter is when player has $0 or cards run out)
+
+
+RESOURCES:
+
+https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
+
+https://stackoverflow.com/questions/66199167/javascript-blackjack-multiple-deck-creation-shuffling
  
