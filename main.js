@@ -1,11 +1,10 @@
-  /*----- constants -----*/
+  
+  
+  /*------------------------ constants -------------------------*/
   const suits = ['heart', 'spade', 'club', 'diamonds']
   const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
    
-
-
-
-  /*----- state variables -----*/
+  /*--------------------- state variables ----------------------*/
   let playerScore;
   let dealerScore; 
   let dealtMoney;
@@ -13,22 +12,22 @@
   let board;
   let card;
   let cards; 
+  let randCard;
+
+/*---------------------- cached elements ------------------------*/
+// const playNowBtn = document.getElementById('playNowButton');
+// const hitBtn = document.getElementById('hitButton')
+// const stayBtn = document.getElementById('stayButton')
+
+/*--------------------- event listeners --------------------------*/
+//  playNowBtn.addEventListener('click', initialize);
+// hitBtn.addEventListener('click', shuffleDeck);
+// stayBtn.addEventListener('click', dealersTurn);
+
+
+/*---------------------- functions -----------------------------*/
  
-
-
-
-//   /*----- cached elements  -----*/
-const playNowBtn = document.getElementById('playNowButton');
-const hitBtn = document.getElementById('hitButton')
-const stayBtn = document.getElementById('stayButton')
-
-//   /*----- event listeners -----*/
- playNowBtn.addEventListener('click', initialize);
-hitBtn.addEventListener('click', shuffleDeck);
-stayBtn.addEventListener('click', dealersTurn);
- /*----- functions -----*/
- 
- initialize(); 
+//  initialize(); 
 
 
 cards = []
@@ -70,23 +69,35 @@ function createCardDeck(cardSuits, cardValues) {
     return(cards)
 
 }
-
 function shuffleDeck(cardDeck){
-    
+        randCard = Math.floor((Math.random() * cardDeck.length));
+        return cardDeck[randCard]
+     } 
+function obtainCardValue(cardDeck){
+         randCardValue = randCard
+        return cardDeck[randCard].numValue
 }
 
 
+function initialize(){
+    // restarts board
+    winner = null;
+    board = [
+        [0, 0, 0, 0, 0, 0], //Dealers side of the board 
+        [0, 0, 0, 0, 0, 0], //Playeers side of the board
+    ];
+    render();
+}
 
+function getWinner();
 
+function render() {
+    // render board
+    renderBoard();
+    // winner message 
+    renderWinnerMessage();
+}
 
-
-
-// function initialize(){
-//     // restarts board
-//     winner = null;
-//     board = [
-//         [0, 0, 0, 0, 0, 0], //Dealers side of the board 
-//         [0, 0, 0, 0, 0, 0], //Playeers side of the board
-//     ];
-//     render();
-// }
+function renderBoard(){
+    
+}
