@@ -17,11 +17,13 @@ header {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 30px;
     color:aquamarine;
-    margin-top: auto;
     display: flex;
     justify-content: space-evenly;
     grid-column: span 5;
     margin: 7vmin;
+    flex-direction: column;
+    align-items: center;
+    
 }
 .board {
     display: flex;

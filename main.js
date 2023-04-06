@@ -21,6 +21,7 @@ const hitBtn = document.getElementById('hitButton');
 const stayBtn = document.getElementById('stayButton');
 const dealersCount = document.getElementById('dealersCounter');
 const playersCount = document.getElementById('playersCounter')
+const winnerMessage = document.querySelector('h3')
 
 /*--------------------- event listeners --------------------------*/
 playNowBtn.addEventListener('click', initialize);
@@ -119,6 +120,7 @@ boardDealer =  [0, 0, 0, 0, 0, 0];
 playerScore = 0;
 dealerScore = 0;
 function renderBoard(){
+
     for(let i = 0; i < 2; i++ ){
         // this renders the board for the player
         const addCardImagePlayer = document.createElement('img')
@@ -127,8 +129,7 @@ function renderBoard(){
         playersCards.children[i].appendChild(addCardImagePlayer) //Here I append two cards to the players board
         boardPlayer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
         playerScore = playerScore + obtainCardValue(mazo)
-       
-        
+
         // this renders the board for the dealer 
         const addCardImageDealer = document.createElement('img');
         shuffleDeck(mazo);// here I find a shuffled card from the deck
@@ -136,7 +137,11 @@ function renderBoard(){
         dealersCards.children[i].appendChild(addCardImageDealer); //Here i append two cards to the dealers board
         boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
         dealerScore = dealerScore + obtainCardValue(mazo);
-        
+        console.log(dealerScore)
+
+        if(dealerScore >= 21 || playerScore >= 21){
+            return
+        }
 
     }
 }
@@ -145,7 +150,7 @@ function renderPlayerChoice(){
     const addCardImagePlayer = document.createElement('img');
     shuffleDeck(mazo);
     addCardImagePlayer.setAttribute('src', obtainCardImg(mazo));
-    let index = boardPlayer.indexOf(0); // Here I obtain the index of the array where it finds the firs 0
+    let index = boardPlayer.indexOf(0); // Here I obtain the index of the array where it finds the first 0
     playersCards.children[index].appendChild(addCardImagePlayer); // Here I create the image of the index with the first 0 that I found in board player. 
     boardPlayer[index] = 1;
     playerScore = playerScore + obtainCardValue(mazo)
@@ -153,15 +158,22 @@ function renderPlayerChoice(){
 }
 
 function renderDealersChoice(){
-    setTimeout(renderDealersChoice, 2000)
-    const addCardImageDealer = document.createElement('img');
-    shuffleDeck(mazo);
-    addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
-    let index = boardDealer.indexOf(0);
-    dealersCards.children[index].appendChild(addCardImageDealer);
-    boardDealer[index] = 1;
-    dealerScore = dealerScore + obtainCardValue(mazo)
-    console.log("computer"+ dealerScore)
-}
+    if(dealerScore >= 17 || dealerScore > playerScore){
+        clearTimeout(renderDealersChoice, 2000)
+        return
+    }else{
+        setTimeout(renderDealersChoice, 2000)
+        const addCardImageDealer = document.createElement('img');
+        shuffleDeck(mazo);
+        addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
+        let index = boardDealer.indexOf(0);
+        dealersCards.children[index].appendChild(addCardImageDealer);
+        boardDealer[index] = 1;
+        dealerScore = dealerScore + obtainCardValue(mazo)
+        console.log("computer"+ dealerScore)
+    }
+
+ }
+       
 console.log("this is mazo"+ mazo)
 
