@@ -4,8 +4,6 @@
   const suits = ['hearts', 'spades', 'clubs', 'diamonds']
   const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
   /*--------------------- state variables ----------------------*/
-  let playerScore;
-  let dealerScore; 
   let dealtMoney;
   let winner;
   let board;
@@ -24,7 +22,7 @@ const playersCount = document.getElementById('playersCounter')
 const winnerMessage = document.querySelector('h3')
 
 /*--------------------- event listeners --------------------------*/
-playNowBtn.addEventListener('click', initialize);
+playNowBtn.addEventListener('click', renderBoard);
 hitBtn.addEventListener('click', renderPlayerChoice);
 stayBtn.addEventListener('click',renderDealersChoice,);
 /*--------------------- functions -----------------------------*/
@@ -120,8 +118,9 @@ boardDealer =  [0, 0, 0, 0, 0, 0];
 playerScore = 0;
 dealerScore = 0;
 function renderBoard(){
-
     for(let i = 0; i < 2; i++ ){
+        dealersCount.innerText = `${dealerScore}`
+        playersCount.innerText =  `${playerScore}`
         // this renders the board for the player
         const addCardImagePlayer = document.createElement('img')
         shuffleDeck(mazo) //here I am getting a random card 
@@ -147,6 +146,7 @@ function renderBoard(){
 }
 
 function renderPlayerChoice(){
+    playersCount.innerText =  `${playerScore}`
     const addCardImagePlayer = document.createElement('img');
     shuffleDeck(mazo);
     addCardImagePlayer.setAttribute('src', obtainCardImg(mazo));
@@ -158,6 +158,7 @@ function renderPlayerChoice(){
 }
 
 function renderDealersChoice(){
+    dealersCount.innerText = `${dealerScore}`
     if(dealerScore >= 17 || dealerScore > playerScore){
         clearTimeout(renderDealersChoice, 2000)
         return
