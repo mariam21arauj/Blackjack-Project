@@ -14,12 +14,13 @@
   let randCard;
 
 /*---------------------- cached elements ------------------------*/
-const dealersCards = document.getElementById('dealersCards')
-const playersCards = document.getElementById('playersCards')
-console.log(playersCards)
- const playNowBtn = document.getElementById('playNowButton');
- const hitBtn = document.getElementById('hitButton')
-const stayBtn = document.getElementById('stayButton')
+const dealersCards = document.getElementById('dealersCards');
+const playersCards = document.getElementById('playersCards');
+const playNowBtn = document.getElementById('playNowButton');
+const hitBtn = document.getElementById('hitButton');
+const stayBtn = document.getElementById('stayButton');
+const dealersCount = document.getElementById('dealersCounter');
+const playersCount = document.getElementById('playersCounter')
 
 /*--------------------- event listeners --------------------------*/
 playNowBtn.addEventListener('click', initialize);
@@ -107,14 +108,17 @@ function render() {
     renderPlayerChoice();
  // this function allows the dealer to take its turn
     renderDealersChoice();
+// Generates a winner
+    getWinner()
  }
+
  //These arrays are meant for support to indicate the occupied slots with a 1, and the empty one with a 0
 //               0  1  2  3  4  5
- boardPlayer =  [0, 0, 0, 0, 0, 0]; //
- boardDealer =  [0, 0, 0, 0, 0, 0];
+boardPlayer =  [0, 0, 0, 0, 0, 0]; //
+boardDealer =  [0, 0, 0, 0, 0, 0];
+playerScore = 0;
+dealerScore = 0;
 function renderBoard(){
-    let sum1 = 0
-    let sum2 = 0
     for(let i = 0; i < 2; i++ ){
         // this renders the board for the player
         const addCardImagePlayer = document.createElement('img')
@@ -122,8 +126,8 @@ function renderBoard(){
         addCardImagePlayer.setAttribute('src', obtainCardImg(mazo)) 
         playersCards.children[i].appendChild(addCardImagePlayer) //Here I append two cards to the players board
         boardPlayer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
-        sum1 = sum1 + obtainCardValue(mazo)
-        console.log("player"+ sum1)
+        playerScore = playerScore + obtainCardValue(mazo)
+       
         
         // this renders the board for the dealer 
         const addCardImageDealer = document.createElement('img');
@@ -131,20 +135,21 @@ function renderBoard(){
         addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
         dealersCards.children[i].appendChild(addCardImageDealer); //Here i append two cards to the dealers board
         boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
-        sum2 = sum2 + obtainCardValue(mazo);
-        console.log("computer"+sum2)
+        dealerScore = dealerScore + obtainCardValue(mazo);
+        
 
     }
 }
 
 function renderPlayerChoice(){
-
-        const addCardImagePlayer = document.createElement('img');
-        shuffleDeck(mazo);
-        addCardImagePlayer.setAttribute('src', obtainCardImg(mazo));
-        let index = boardPlayer.indexOf(0); // Here I obtain the index of the array where it finds the firs 0
-        playersCards.children[index].appendChild(addCardImagePlayer); // Here I create the image of the index with the first 0 that I found in board player. 
-        boardPlayer[index] = 1;
+    const addCardImagePlayer = document.createElement('img');
+    shuffleDeck(mazo);
+    addCardImagePlayer.setAttribute('src', obtainCardImg(mazo));
+    let index = boardPlayer.indexOf(0); // Here I obtain the index of the array where it finds the firs 0
+    playersCards.children[index].appendChild(addCardImagePlayer); // Here I create the image of the index with the first 0 that I found in board player. 
+    boardPlayer[index] = 1;
+    playerScore = playerScore + obtainCardValue(mazo)
+    console.log("player"+ playerScore)
 }
 
 function renderDealersChoice(){
@@ -155,10 +160,8 @@ function renderDealersChoice(){
     let index = boardDealer.indexOf(0);
     dealersCards.children[index].appendChild(addCardImageDealer);
     boardDealer[index] = 1;
-
-
+    dealerScore = dealerScore + obtainCardValue(mazo)
+    console.log("computer"+ dealerScore)
 }
-
-
-
 console.log("this is mazo"+ mazo)
+
