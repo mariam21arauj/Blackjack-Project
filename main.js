@@ -22,7 +22,7 @@ const playersCount = document.getElementById('playersCounter')
 const winnerMessage = document.querySelector('h3')
 
 /*--------------------- event listeners --------------------------*/
-playNowBtn.addEventListener('click', renderBoard);
+playNowBtn.addEventListener('click', initialize);
 hitBtn.addEventListener('click', renderPlayerChoice);
 stayBtn.addEventListener('click',renderDealersChoice,);
 /*--------------------- functions -----------------------------*/
@@ -90,17 +90,45 @@ function obtainCardImg(cardDeck){
 
 // This function resets the board to be ready to play 
 function initialize(){
+    //These arrays are meant for support to indicate the occupied slots with a 1, and the empty one with a 0
+//               0  1  2  3  4  5
+boardPlayer =  [0, 0, 0, 0, 0, 0]; //
+boardDealer =  [0, 0, 0, 0, 0, 0];
+playerScore = 0;
+dealerScore = 0;
+    for(let i = 0; i < 2; i++ ){
+
+        // this renders the board for the player
+        const addCardImagePlayer = document.createElement('img')
+        shuffleDeck(mazo) //here I am getting a random card 
+        addCardImagePlayer.setAttribute('src', obtainCardImg(mazo))
+        addCardImagePlayer.style.backgroundColor = 'white' 
+        playersCards.children[i].appendChild(addCardImagePlayer) //Here I append two cards to the players board
+        boardPlayer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
+        playerScore = playerScore + obtainCardValue(mazo)
+
+        // this renders the board for the dealer 
+        const addCardImageDealer = document.createElement('img');
+        shuffleDeck(mazo);// here I find a shuffled card from the deck
+        addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
+        addCardImageDealer.style.backgroundColor = 'white'
+        dealersCards.children[i].appendChild(addCardImageDealer); //Here i append two cards to the dealers board
+        boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
+        dealerScore = dealerScore + obtainCardValue(mazo);
+        console.log(dealerScore)
+        dealersCount.innerText = `${dealerScore}`
+        playersCount.innerText =  `${playerScore}`
+        if(dealerScore >= 21 || playerScore >= 21){
+            return
+        }
+
+    }
     winner = null; 
     render();
 }
 
-// this is the function that will be called for the dealers and players choice. 
-function getWinner(){}
 
-// this 
 function render() {
-// render board
-   renderBoard();
 // winner message 
    renderWinnerMessage();
 // Allows palyer to click hit and render a card on board
@@ -111,54 +139,20 @@ function render() {
     getWinner()
  }
 
- //These arrays are meant for support to indicate the occupied slots with a 1, and the empty one with a 0
-//               0  1  2  3  4  5
-boardPlayer =  [0, 0, 0, 0, 0, 0]; //
-boardDealer =  [0, 0, 0, 0, 0, 0];
-playerScore = 0;
-dealerScore = 0;
-function renderBoard(){
-    for(let i = 0; i < 2; i++ ){
-        dealersCount.innerText = `${dealerScore}`
-        playersCount.innerText =  `${playerScore}`
-        // this renders the board for the player
-        const addCardImagePlayer = document.createElement('img')
-        shuffleDeck(mazo) //here I am getting a random card 
-        addCardImagePlayer.setAttribute('src', obtainCardImg(mazo)) 
-        playersCards.children[i].appendChild(addCardImagePlayer) //Here I append two cards to the players board
-        boardPlayer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
-        playerScore = playerScore + obtainCardValue(mazo)
-
-        // this renders the board for the dealer 
-        const addCardImageDealer = document.createElement('img');
-        shuffleDeck(mazo);// here I find a shuffled card from the deck
-        addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
-        dealersCards.children[i].appendChild(addCardImageDealer); //Here i append two cards to the dealers board
-        boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
-        dealerScore = dealerScore + obtainCardValue(mazo);
-        console.log(dealerScore)
-
-        if(dealerScore >= 21 || playerScore >= 21){
-            return
-        }
-
-    }
-}
-
 function renderPlayerChoice(){
-    playersCount.innerText =  `${playerScore}`
     const addCardImagePlayer = document.createElement('img');
     shuffleDeck(mazo);
     addCardImagePlayer.setAttribute('src', obtainCardImg(mazo));
+    addCardImagePlayer.style.backgroundColor = 'white'
     let index = boardPlayer.indexOf(0); // Here I obtain the index of the array where it finds the first 0
     playersCards.children[index].appendChild(addCardImagePlayer); // Here I create the image of the index with the first 0 that I found in board player. 
     boardPlayer[index] = 1;
     playerScore = playerScore + obtainCardValue(mazo)
+    playersCount.innerText =  `${playerScore}`
     console.log("player"+ playerScore)
 }
 
 function renderDealersChoice(){
-    dealersCount.innerText = `${dealerScore}`
     if(dealerScore >= 17 || dealerScore > playerScore){
         clearTimeout(renderDealersChoice, 2000)
         return
@@ -167,10 +161,12 @@ function renderDealersChoice(){
         const addCardImageDealer = document.createElement('img');
         shuffleDeck(mazo);
         addCardImageDealer.setAttribute('src', obtainCardImg(mazo));
+        addCardImageDealer.style.backgroundColor = 'white'
         let index = boardDealer.indexOf(0);
         dealersCards.children[index].appendChild(addCardImageDealer);
         boardDealer[index] = 1;
         dealerScore = dealerScore + obtainCardValue(mazo)
+        dealersCount.innerText = `${dealerScore}`
         console.log("computer"+ dealerScore)
     }
 
@@ -178,3 +174,10 @@ function renderDealersChoice(){
        
 console.log("this is mazo"+ mazo)
 
+// function getWinner(){
+//     if(winner === null){
+//         playNowBtn.style.visibility = 'hidden';
+//     } else {
+//         playNowBtn.style.visibility = 'visible'
+//     }
+// }
