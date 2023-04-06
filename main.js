@@ -1,7 +1,7 @@
   
   
   /*------------------------ constants -------------------------*/
-  const suits = ['heart', 'spade', 'club', 'diamonds']
+  const suits = ['hearts', 'spades', 'clubs', 'diamonds']
   const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
    
   /*--------------------- state variables ----------------------*/
@@ -15,20 +15,20 @@
   let randCard;
 
 /*---------------------- cached elements ------------------------*/
-// const playNowBtn = document.getElementById('playNowButton');
-// const hitBtn = document.getElementById('hitButton')
-// const stayBtn = document.getElementById('stayButton')
+const dealersCards = document.getElementById('dealersCards')
+const playersCards = document.getElementById('playersCards')
+console.log(playersCards)
+ const playNowBtn = document.getElementById('playNowButton');
+ const hitBtn = document.getElementById('hitButton')
+const stayBtn = document.getElementById('stayButton')
 
 /*--------------------- event listeners --------------------------*/
 //  playNowBtn.addEventListener('click', initialize);
-// hitBtn.addEventListener('click', shuffleDeck);
+// hitBtn.addEventListener('click', renderBoard);
 // stayBtn.addEventListener('click', dealersTurn);
 
 
 /*---------------------- functions -----------------------------*/
- 
-//  initialize(); 
-
 
 cards = []
 card = {}
@@ -42,25 +42,25 @@ function createCardDeck(cardSuits, cardValues) {
                 card = {
                     cardName: suits[i] + '-' + values[j], 
                     numValue: 11,
-                    img: '/images/' + suits[i] + '-' + values[j] + '.svg'
+                    img: '/card-deck/images/' + suits[i] + '-' + values[j] + '.svg'
                 }
             }else if(values[j] === 'K' || values[j] === 'Q' || values[j] === 'J'){
                 card = {
                     cardName: suits[i] + '-' + values[j], 
                     numValue: 10,
-                    img: '/images/' + suits[i] + '-' + values[j] + '.svg'
+                    img: '/card-deck/images/' + suits[i] + '-' + values[j] + '.svg'
                 }
             }else if (values[j] === '10'){
                 card = {
                     cardName: suits[i] + '-' + values[j], 
                     numValue: Number(values[j]),
-                    img: '/images/' + suits[i] + '-r' + values[j] + '.svg'
+                    img: '/card-deck/images/' + suits[i] + '-r' + values[j] + '.svg'
                 }
             }else{
                 card = {
                     cardName: suits[i] + '-' + values[j], 
                     numValue: Number(values[j]),
-                    img: '/images/' + suits[i] + '-r0' + values[j] + '.svg'
+                    img: '/card-deck/images/' + suits[i] + '-r0' + values[j] + '.svg'
                 }
             }
          cards.push(card)
@@ -69,35 +69,57 @@ function createCardDeck(cardSuits, cardValues) {
     return(cards)
 
 }
+
+let randCardValue;
+let randCardImg;
 function shuffleDeck(cardDeck){
         randCard = Math.floor((Math.random() * cardDeck.length));
         return cardDeck[randCard]
      } 
+     console.log(shuffleDeck(createCardDeck(suits, values)))
+
 function obtainCardValue(cardDeck){
          randCardValue = randCard
         return cardDeck[randCard].numValue
-}
+    }
+console.log(obtainCardValue(createCardDeck(suits, values)))
+
+function obtainCardImg(cardDeck){
+    randCardImg = randCard
+   return cardDeck[randCard].img
+    }
+    console.log(obtainCardImg(createCardDeck(suits, values)))
 
 
 function initialize(){
-    // restarts board
-    winner = null;
+    winner = null;  // restarts board
     board = [
-        [0, 0, 0, 0, 0, 0], //Dealers side of the board 
-        [0, 0, 0, 0, 0, 0], //Playeers side of the board
-    ];
-    render();
-}
+        [0, 0, 0, 0, 0, 0], //col 0
+        [0, 0, 0, 0, 0, 0], //col 1
+    //  r0 r1 r2 r3 r4 r5 
+    ]
+ render();
+    }
 
-function getWinner();
 
+function getWinner(){}
 function render() {
-    // render board
-    renderBoard();
-    // winner message 
-    renderWinnerMessage();
-}
+// render board
+   renderBoard();
+ // winner message 
+//  renderWinnerMessage();
+ }
 
 function renderBoard(){
-    
+    for(let i = 0; i < 2; i++ ){
+        const addCardImagePlayer = document.createElement('img')
+        shuffleDeck(createCardDeck(suits, values))
+        addCardImagePlayer.setAttribute('src', obtainCardImg(createCardDeck(suits, values)))
+        playersCards.children[i].appendChild(addCardImagePlayer)
+        const addCardImageDealer = document.createElement('img')
+        shuffleDeck(createCardDeck(suits, values))
+        addCardImageDealer.setAttribute('src', obtainCardImg(createCardDeck(suits, values)))
+        dealersCards.children[i].appendChild(addCardImageDealer)
+    }
 }
+initialize()
