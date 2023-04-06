@@ -23,7 +23,7 @@ console.log(playersCards)
 const stayBtn = document.getElementById('stayButton')
 
 /*--------------------- event listeners --------------------------*/
-//  playNowBtn.addEventListener('click', initialize);
+playNowBtn.addEventListener('click', initialize);
 // hitBtn.addEventListener('click', renderBoard);
 // stayBtn.addEventListener('click', dealersTurn);
 
@@ -92,22 +92,18 @@ function obtainCardImg(cardDeck){
 
 
 function initialize(){
-    winner = null;  // restarts board
-    board = [
-        [0, 0, 0, 0, 0, 0], //col 0
-        [0, 0, 0, 0, 0, 0], //col 1
-    //  r0 r1 r2 r3 r4 r5 
-    ]
+    winner = null;  
  render();
     }
-
 
 function getWinner(){}
 function render() {
 // render board
    renderBoard();
- // winner message 
-//  renderWinnerMessage();
+// winner message 
+   renderWinnerMessage();
+// Allows palyer to click hit and render a card on board
+    renderPlayer();
  }
 
 function renderBoard(){
@@ -122,4 +118,6 @@ function renderBoard(){
         dealersCards.children[i].appendChild(addCardImageDealer)
     }
 }
-initialize()
+
+
+
