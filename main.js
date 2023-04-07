@@ -50,25 +50,25 @@ function createCardDeck(cardSuits, cardValues) {
         card = {
           cardName: suits[i] + "-" + values[j],
           numValue: 11,
-          img: "/card-deck/images/" + suits[i] + "-" + values[j] + ".svg",
+          img: "card-deck/images/" + suits[i] + "-" + values[j] + ".svg",
         };
       } else if (values[j] === "K" || values[j] === "Q" || values[j] === "J") {
         card = {
           cardName: suits[i] + "-" + values[j],
           numValue: 10,
-          img: "/card-deck/images/" + suits[i] + "-" + values[j] + ".svg",
+          img: "card-deck/images/" + suits[i] + "-" + values[j] + ".svg",
         };
       } else if (values[j] === "10") {
         card = {
           cardName: suits[i] + "-" + values[j],
           numValue: Number(values[j]),
-          img: "/card-deck/images/" + suits[i] + "-r" + values[j] + ".svg",
+          img: "card-deck/images/" + suits[i] + "-r" + values[j] + ".svg",
         };
       } else {
         card = {
           cardName: suits[i] + "-" + values[j],
           numValue: Number(values[j]),
-          img: "/card-deck/images/" + suits[i] + "-r0" + values[j] + ".svg",
+          img: "card-deck/images/" + suits[i] + "-r0" + values[j] + ".svg",
         };
       }
       cards.push(card);
@@ -107,6 +107,8 @@ function initialize() {
   playerScore = 0;
   dealerScore = 0;
   for (let i = 0; i < 2; i++) {
+
+
     // this renders the board for the player
     const addCardImagePlayer = document.createElement("img");
     shuffleDeck(mazo); //here I am getting a random card
@@ -118,16 +120,18 @@ function initialize() {
 
 
     // this renders the board for the dealer
-    if (i === 1) {
+    if (i === 1) { // here I verify if i is in one
+      // and I save the card image that I will enventually flip and we sace it in addCardImageDealerX
       addCardImageDealerX = document.createElement("img");
       shuffleDeck(mazo); // here I find a shuffled card from the deck
       addCardImageDealerX.setAttribute("src", obtainCardImg(mazo));
       addCardImageDealerX.style.backgroundColor = "white";
 
+      // here I create the flipped card and show it in the DOM
       const addCardDealerUpsideDown = document.createElement("img");
       addCardDealerUpsideDown.setAttribute("src", "/card-deck/images/red.svg");
       addCardDealerUpsideDown.style.backgroundColor = "white";
-      dealersCards.children[i].appendChild(addCardDealerUpsideDown); //Here i append two cards to the dealers board
+      dealersCards.children[i].appendChild(addCardDealerUpsideDown);
       boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
       dealerScore = dealerScore + obtainCardValue(mazo);
       playersCount.innerText = `${playerScore}`;
