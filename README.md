@@ -1,7 +1,5 @@
-  Pseudocode of BlackJack 
+ BlackJack 
 
-  BUTTONS: "Play Now", "Play Again", "Deal", "Stand", "Hit "
-  CARDS: 52 cards with a specific numeric value 
 
 
  This game will take place on a table (the screen) consisting of a player playing against the computer (Dealer) with a deck of 52 cards. 

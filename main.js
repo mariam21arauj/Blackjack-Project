@@ -120,16 +120,16 @@ function initialize() {
 
 
     // this renders the board for the dealer
-    if (i === 1) { // here I verify if i is in one
-      // and I save the card image that I will enventually flip and we sace it in addCardImageDealerX
+    if (i === 1) { // here I verify if i is in on 1
+      // and here I save the card image that I will enventually flip and we save it in addCardImageDealerX
       addCardImageDealerX = document.createElement("img");
       shuffleDeck(mazo); // here I find a shuffled card from the deck
       addCardImageDealerX.setAttribute("src", obtainCardImg(mazo));
       addCardImageDealerX.style.backgroundColor = "white";
 
-      // here I create the flipped card and show it in the DOM
+      // here I create the backside card and show it in the DOM
       const addCardDealerUpsideDown = document.createElement("img");
-      addCardDealerUpsideDown.setAttribute("src", "/card-deck/images/red.svg");
+      addCardDealerUpsideDown.setAttribute("src", "card-deck/images/red.svg");
       addCardDealerUpsideDown.style.backgroundColor = "white";
       dealersCards.children[i].appendChild(addCardDealerUpsideDown);
       boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
