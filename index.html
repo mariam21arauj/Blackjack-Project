@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,59 +8,62 @@
     <title>Blackjack</title>
     <script defer src="./main.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="cardstarter.css"></link>
+    <link rel="stylesheet" href="cardstarter.css">
+    </link>
 </head>
+
 <body>
     <header>
-       <h1>Blackjack</h1> 
-       <h3></h3>
+        <h1>Blackjack</h1>
+        <h3></h3>
     </header>
 
-<!-- playign buttons -->
+    <!-- playign buttons -->
     <section class="sectionButtons">
         <button id="hitButton">Hit</button>
         <button id="stayButton">Stay</button>
     </section>
-<!-- Board -->
-    <section class = board>
+    <!-- Board -->
+    <section class=board>
         <section id="dealersCards">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
-            
-            
+
+
         </section>
         <h3>Dealt money!</h3>
-        <p>100$</p>
+        <p id="bet"></p>
         <section id="playersCards">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
-            
-            
+
+
         </section>
     </section>
-    
- <!-- Identify players -->
+
+    <!-- Identify players -->
     <section id="players">
         <div>
             <h4>Dealer</h4>
-            <p id = "dealersCounter"></p>
+            <p id="dealersCounter"></p>
         </div>
         <div>
             <h4>Player</h4>
-            <p id = "playersCounter" ></p>
+            <p id="playersCounter"></p>
         </div>
-       
+
     </section>
-<!-- play now button -->
+    <!-- play now button -->
     <footer id="playNowButton">
-        <button>Play now</button>
+        <button id="play">Play now</button>
     </footer>
-    
+
 </body>
+
 </html>
