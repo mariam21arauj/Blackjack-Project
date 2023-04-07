@@ -4,12 +4,13 @@
   const suits = ['hearts', 'spades', 'clubs', 'diamonds']
   const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
   /*--------------------- state variables ----------------------*/
-  let dealtMoney;
   let winner;
   let board;
   let card;
   let mazo;
   let randCard;
+  let dealerScore;
+  let playerScore;
 
 /*---------------------- cached elements ------------------------*/
 const dealersCards = document.getElementById('dealersCards');
@@ -18,13 +19,14 @@ const playNowBtn = document.getElementById('playNowButton');
 const hitBtn = document.getElementById('hitButton');
 const stayBtn = document.getElementById('stayButton');
 const dealersCount = document.getElementById('dealersCounter');
-const playersCount = document.getElementById('playersCounter')
-const winnerMessage = document.querySelector('h3')
+const playersCount = document.getElementById('playersCounter');
+const winnerMessage = document.querySelector('h3');
+const dealtMoney = document.querySelector('p');
 
 /*--------------------- event listeners --------------------------*/
 playNowBtn.addEventListener('click', initialize);
 hitBtn.addEventListener('click', renderPlayerChoice);
-stayBtn.addEventListener('click',renderDealersChoice,);
+stayBtn.addEventListener('click',renderDealersChoice, initialize);
 /*--------------------- functions -----------------------------*/
 card = {}
 // Every time his function is called, It will generate a card deck matching the values of 
@@ -118,12 +120,14 @@ dealerScore = 0;
         console.log(dealerScore)
         dealersCount.innerText = `${dealerScore}`
         playersCount.innerText =  `${playerScore}`
-        if(dealerScore >= 21 || playerScore >= 21){
+        if(dealerScore > 21 || playerScore > 21){
             return
         }
-
+    
     }
     winner = null; 
+    checkForBlackJackDealer()
+    checkForBlackJackPlayer()
     render();
 }
 
@@ -136,7 +140,6 @@ function render() {
  // this function allows the dealer to take its turn
     renderDealersChoice();
 // Generates a winner
-    getWinner()
  }
 
 function renderPlayerChoice(){
@@ -149,12 +152,20 @@ function renderPlayerChoice(){
     boardPlayer[index] = 1;
     playerScore = playerScore + obtainCardValue(mazo)
     playersCount.innerText =  `${playerScore}`
-    console.log("player"+ playerScore)
+    // here I check for winning conditions for the player //
+    if(playerScore > 21) {
+        window.alert('House won, give me your money!')
+    }else if(playerScore === 21){
+        window.alert('Fine, you win this time')
+    }else{
+        return
+    }
 }
+    console.log("player"+ playerScore)
 
 function renderDealersChoice(){
-    if(dealerScore >= 17 || dealerScore > playerScore){
-        clearTimeout(renderDealersChoice, 2000)
+    if(dealerScore >= 17){
+        checkForWinner()
         return
     }else{
         setTimeout(renderDealersChoice, 2000)
@@ -168,16 +179,48 @@ function renderDealersChoice(){
         dealerScore = dealerScore + obtainCardValue(mazo)
         dealersCount.innerText = `${dealerScore}`
         console.log("computer"+ dealerScore)
-    }
 
- }
+    }
+}
+    // this checking for winning conditions
+    function checkForWinner() {
+        if(dealerScore < 21 && dealerScore > playerScore){
+            window.alert('House won, give me your money!')
+        }else if (dealerScore > 21 || dealerScore < playerScore){
+            window.alert('Fine, you win this time')
+        }else if (dealerScore === playerScore){
+            window.alert('Push!')
+            return
+        }else if (dealerScore === 21){
+            window.alert('House won, give me your money!')
+        }else{
+            return
+        }
+     }
        
 console.log("this is mazo"+ mazo)
 
-// function getWinner(){
-//     if(winner === null){
-//         playNowBtn.style.visibility = 'hidden';
-//     } else {
-//         playNowBtn.style.visibility = 'visible'
-//     }
-// }
+
+
+
+////////These are the winning condition functions
+function checkForTie(){
+     if (dealerScore === playerScore){
+        window.alert('Push!')
+    }else{
+        return
+    }
+}
+
+function checkForBlackJackDealer(){
+    if(dealerScore === 21){
+        window.alert('It is a BlackJack! I win')
+    }
+}
+
+function checkForBlackJackPlayer(){
+    if(playerScore === 21){
+        window.alert('It is a BlackJack! You win')
+    }
+}
+
