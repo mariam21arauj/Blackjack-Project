@@ -1,5 +1,4 @@
-  
-  
+
   /*------------------------ constants -------------------------*/
   const suits = ['hearts', 'spades', 'clubs', 'diamonds']
   const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
@@ -75,20 +74,18 @@ let randCardImg; let randCardValue;
 function shuffleDeck(cardDeck){
         randCard = Math.floor((Math.random() * cardDeck.length));
         return cardDeck[randCard]
-     } 
-     console.log(shuffleDeck(mazo))
+     }
 
 function obtainCardValue(cardDeck){
          randCardValue = randCard
         return cardDeck[randCard].numValue
     }
-console.log(obtainCardValue(createCardDeck(suits, values)))
 
 function obtainCardImg(cardDeck){
     randCardImg = randCard
    return cardDeck[randCard].img
     }
-    console.log(obtainCardImg(mazo))
+
 
 // This function resets the board to be ready to play 
 function initialize(){
@@ -117,7 +114,6 @@ dealerScore = 0;
         dealersCards.children[i].appendChild(addCardImageDealer); //Here i append two cards to the dealers board
         boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
         dealerScore = dealerScore + obtainCardValue(mazo);
-        console.log(dealerScore)
         dealersCount.innerText = `${dealerScore}`
         playersCount.innerText =  `${playerScore}`
         if(dealerScore > 21 || playerScore > 21){
@@ -155,17 +151,16 @@ function renderPlayerChoice(){
     playersCount.innerText =  `${playerScore}`
     // here I check for winning conditions for the player //
     if(playerScore > 21) {
-        window.alert('House won, give me your money!')
-        cleanBoard();
+        setTimeout(cleanBoard, 4000)
+        winnerMessage.innerText = 'House won, give me your money!'
         return    
     }else if(playerScore === 21){
-        window.alert('Fine, you win this time')
-        cleanBoard();           
+        setTimeout(cleanBoard, 4000) 
+        winnerMessage.innerText = 'Fine, you win this time'          
     }else{
         return
     }
 }
-    console.log("player"+ playerScore)
 
 function renderDealersChoice(){
     if(dealerScore >= 17){
@@ -182,35 +177,32 @@ function renderDealersChoice(){
         boardDealer[index] = 1;
         dealerScore = dealerScore + obtainCardValue(mazo)
         dealersCount.innerText = `${dealerScore}`
-        console.log("computer"+ dealerScore)
-
     }
 }
     // this checking for winning conditions
     function checkForWinner() {
         if(dealerScore < 21 && dealerScore > playerScore){
-            window.alert('House won, give me your money!')
-            cleanBoard();
+            setTimeout(cleanBoard, 4000)
+            winnerMessage.innerText = 'House won, give me your money!'
+     
             return;   
         }else if (dealerScore > 21 || dealerScore < playerScore){
-            window.alert('Fine, you win this time')       
-            cleanBoard(); 
+            setTimeout(cleanBoard, 4000) 
+            winnerMessage.innerText = 'Fine, you win this time'      
             return;  
         }else if (dealerScore === playerScore){
-            window.alert('Push!')
-            cleanBoard();          
+            setTimeout(cleanBoard, 4000)
+            winnerMessage.innerText = 'Push!'          
             return
         }else if (dealerScore === 21){
-            window.alert('House won, give me your money!') 
-            cleanBoard();          
+            setTimeout(cleanBoard, 4000)
+            winnerMessage.innerText = 'House won, give me your money!'        
         }else{
-            cleanBoard();    
+            setTimeout(cleanBoard, 4000)  
             return
             
         }
      }
-       
-console.log("this is mazo"+ mazo)
 
 
 
@@ -218,8 +210,8 @@ console.log("this is mazo"+ mazo)
 ////////These are the winning condition functions
 function checkForTie(){
      if (dealerScore === playerScore){
-        window.alert('Push!')
-        cleanBoard();    
+        setTimeout(cleanBoard, 4000)
+        winnerMessage.innerText = 'Push!'    
     }else{
         return
     }
@@ -227,23 +219,24 @@ function checkForTie(){
 
 function checkForBlackJackDealer(){
     if(dealerScore === 21){
-        window.alert('It is a BlackJack! I win')
-        cleanBoard();    
+        setTimeout(cleanBoard, 4000)  
+        winnerMessage.innerText = 'It is a BlackJack! I win' 
     }
 }
 
 function checkForBlackJackPlayer(){
     if(playerScore === 21){
-        window.alert('It is a BlackJack! You win')
-        cleanBoard();    
+        setTimeout(cleanBoard, 4000) 
+        winnerMessage.innerText = 'It is a BlackJack! You win'   
     }
 }
 function cleanBoard (){
     for(let i = 0; i < 5; i++){
         document.getElementById('playersCards').children[i].innerHTML = '';
         document.getElementById('dealersCards').children[i].innerHTML = '';
-    }
 
+    }
+    document.querySelector('h3').innerHTML = '';
     dealersCount.innerText = 0;
     playersCount.innerText =0;
 }
