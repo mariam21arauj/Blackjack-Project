@@ -126,8 +126,9 @@ dealerScore = 0;
     
     }
     winner = null; 
-    checkForBlackJackDealer()
-    checkForBlackJackPlayer()
+    checkForBlackJackDealer();
+    checkForBlackJackPlayer();
+    checkForTie();
     render();
 }
 
@@ -155,8 +156,11 @@ function renderPlayerChoice(){
     // here I check for winning conditions for the player //
     if(playerScore > 21) {
         window.alert('House won, give me your money!')
+        cleanBoard();
+        return    
     }else if(playerScore === 21){
         window.alert('Fine, you win this time')
+        cleanBoard();           
     }else{
         return
     }
@@ -186,15 +190,23 @@ function renderDealersChoice(){
     function checkForWinner() {
         if(dealerScore < 21 && dealerScore > playerScore){
             window.alert('House won, give me your money!')
+            cleanBoard();
+            return;   
         }else if (dealerScore > 21 || dealerScore < playerScore){
-            window.alert('Fine, you win this time')
+            window.alert('Fine, you win this time')       
+            cleanBoard(); 
+            return;  
         }else if (dealerScore === playerScore){
             window.alert('Push!')
+            cleanBoard();          
             return
         }else if (dealerScore === 21){
-            window.alert('House won, give me your money!')
+            window.alert('House won, give me your money!') 
+            cleanBoard();          
         }else{
+            cleanBoard();    
             return
+            
         }
      }
        
@@ -207,6 +219,7 @@ console.log("this is mazo"+ mazo)
 function checkForTie(){
      if (dealerScore === playerScore){
         window.alert('Push!')
+        cleanBoard();    
     }else{
         return
     }
@@ -215,12 +228,22 @@ function checkForTie(){
 function checkForBlackJackDealer(){
     if(dealerScore === 21){
         window.alert('It is a BlackJack! I win')
+        cleanBoard();    
     }
 }
 
 function checkForBlackJackPlayer(){
     if(playerScore === 21){
         window.alert('It is a BlackJack! You win')
+        cleanBoard();    
     }
 }
+function cleanBoard (){
+    for(let i = 0; i < 5; i++){
+        document.getElementById('playersCards').children[i].innerHTML = '';
+        document.getElementById('dealersCards').children[i].innerHTML = '';
+    }
 
+    dealersCount.innerText = 0;
+    playersCount.innerText =0;
+}
