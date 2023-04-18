@@ -101,13 +101,12 @@ function obtainCardImg(cardDeck) {
 let addCardImageDealerX;
 function initialize() {
   //These arrays are meant for support to indicate the occupied slots with a 1, and the empty one with a 0
-  //               0  1  2  3  4  5
-  boardPlayer = [0, 0, 0, 0, 0, 0]; //
-  boardDealer = [0, 0, 0, 0, 0, 0];
+  //             0  1  2  3  4  
+  boardPlayer = [0, 0, 0, 0, 0]; // after first iteration, index 0 has a value of 1
+  boardDealer = [0, 0, 0, 0, 0]; //after first iteration index 0 has a value of 1
   playerScore = 0;
   dealerScore = 0;
   for (let i = 0; i < 2; i++) {
-
 
     // this renders the board for the player
     const addCardImagePlayer = document.createElement("img");
@@ -127,6 +126,7 @@ function initialize() {
       addCardImageDealerX.setAttribute("src", obtainCardImg(mazo));
       addCardImageDealerX.style.backgroundColor = "white";
 
+      
       // here I create the backside card and show it in the DOM
       const addCardDealerUpsideDown = document.createElement("img");
       addCardDealerUpsideDown.setAttribute("src", "card-deck/images/red.svg");
@@ -134,6 +134,7 @@ function initialize() {
       dealersCards.children[i].appendChild(addCardDealerUpsideDown);
       boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
       dealerScore = dealerScore + obtainCardValue(mazo);
+      // here I update the players score on the screen but not the dealer's score.
       playersCount.innerText = `${playerScore}`;
     } else {
       const addCardImageDealer = document.createElement("img");
@@ -143,8 +144,8 @@ function initialize() {
       dealersCards.children[i].appendChild(addCardImageDealer); 
       boardDealer[i] = 1; // Here I indicate it's occupied placing a one in position boardPlayer[i]
       dealerScore = dealerScore + obtainCardValue(mazo);
-      dealersCount.innerText = `${dealerScore}`;
-      playersCount.innerText = `${playerScore}`;
+      dealersCount.innerText = `${dealerScore}`; //Here I display in the DOM the score of the dealer 
+      playersCount.innerText = `${playerScore}`; //Here I display in the DOM the score of the player
       if (dealerScore > 21 || playerScore > 21) {
         return;
       }
@@ -154,17 +155,8 @@ function initialize() {
   checkForBlackJackDealer();
   checkForBlackJackPlayer();
   checkForTie();
-  render();
 }
 
-function render() {
-renderWinnerMessage(); /// ---> I dont know the purpose of this function anymore, but I don't use it anywhere and if i try to remove it my code breaks.
-  // Allows palyer to click hit and render a card on board
-  renderPlayerChoice();
-  // this function allows the dealer to take its turn
-  renderDealersChoice();
-  // Generates a winner
-}
 
 function renderPlayerChoice() {
   const addCardImagePlayer = document.createElement("img");
@@ -195,9 +187,9 @@ function renderPlayerChoice() {
 }
 
 function renderDealersChoice() {
-  dealersCards.children[1].innerHTML = "";
-  dealersCards.children[1].appendChild(addCardImageDealerX);
-  dealersCount.innerText = `${dealerScore}`;
+  dealersCards.children[1].innerHTML = ""; // here i removed my upsidedown card
+  dealersCards.children[1].appendChild(addCardImageDealerX); // here I added the card that I saved earlier and added to the dom.
+  dealersCount.innerText = `${dealerScore}`; // Here I update the dealers counter in the dom
   if (dealerScore >= 17) {
     checkForWinner();
     return;
@@ -258,6 +250,7 @@ function checkForTie() {
 
 function checkForBlackJackDealer() {
   if (dealerScore === 21) {
+    dealersCards.children[index].appendChild(addCardImageDealer);
     setTimeout(cleanBoard, 5000);
     winnerMessage.innerText =
       "It is a BlackJack! I win. I have earned" + " " + betAmount * 2.5;
